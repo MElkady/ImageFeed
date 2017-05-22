@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ImageFeed</string>
+    <string name="error">Error</string>
+    <string name="please_enter_search_query">Please enter search query</string>
+    <string name="an_error_happen">An error happened</string>
+    <string name="history">History</string>
+    <string name="ok">OK</string>
+</resources>
