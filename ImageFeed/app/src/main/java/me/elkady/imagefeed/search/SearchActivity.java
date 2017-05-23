@@ -54,24 +54,36 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
 
-        mPresenter = new SearchPresenter(new PhotosRepositoryImpl(), new HistoryRepositoryImpl());    // TODO someday we should use dependency injection...
-        mPresenter.attachView(this);
+        // Setting up presenter
+        Object oldPresenter = getLastCustomNonConfigurationInstance();
+        if(oldPresenter != null && oldPresenter instanceof SearchContract.Presenter) {
+            mPresenter = (SearchContract.Presenter) oldPresenter;
+            mPresenter.attachView(this);
+        } else {
+            mPresenter = new SearchPresenter(new PhotosRepositoryImpl(), new HistoryRepositoryImpl());    // TODO someday we should use dependency injection...
+            mPresenter.attachView(this);
+        }
 
+        // Setting up recycler view
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         this.mPresenter.detachView();
-        this.mPresenter = null;
+        super.onDestroy();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);
         return true;
+    }
+
+    @Override
+    public Object onRetainCustomNonConfigurationInstance() {
+        return mPresenter;
     }
 
     @Override
