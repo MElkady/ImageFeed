@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:layout_marginLeft="@dimen/screen_horizontal_padding"
+        android:layout_marginRight="@dimen/screen_horizontal_padding"
+        android:id="@+id/tv_search"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/search_button_area"
+        android:drawableStart="@drawable/ic_search_gray"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:layout_below="@+id/toolbar"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_search"
+        android:layout_alignBottom="@+id/tv_search"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/search_button_area"
+        >
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/screen_horizontal_padding"
+            android:layout_marginRight="@dimen/screen_horizontal_padding"
+            android:src="@drawable/ic_search"
+            android:id="@+id/btn_search"
+            />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/screen_horizontal_padding"
+            android:layout_marginRight="@dimen/screen_horizontal_padding"
+            android:src="@drawable/ic_search"
+            android:visibility="gone"
+            android:id="@+id/progress_bar" />
+    </FrameLayout>
+
+
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_images"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="@dimen/screen_horizontal_padding"
+        android:layout_marginRight="@dimen/screen_horizontal_padding"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/tv_search"/>
+
+</RelativeLayout>

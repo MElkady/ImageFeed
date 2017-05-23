@@ -8,12 +8,8 @@ import java.util.List;
 
 import me.elkady.imagefeed.models.SearchTerm;
 
-/**
- * Created by MAK on 5/22/17.
- */
-
 @Dao
-public interface HistoryDAO {
+interface HistoryDAO {
     @Query("SELECT * FROM SearchTerm order by timestamp DESC")
     List<SearchTerm> getHistoryItems();
 

@@ -8,10 +8,6 @@ import me.elkady.imagefeed.data.PhotosRepository;
 import me.elkady.imagefeed.models.PhotoItem;
 import me.elkady.imagefeed.models.SearchTerm;
 
-/**
- * Created by MAK on 5/21/17.
- */
-
 public class SearchPresenter implements SearchContract.Presenter {
     private SearchContract.View mView;
     private final PhotosRepository mPhotosRepository;
@@ -35,14 +31,18 @@ public class SearchPresenter implements SearchContract.Presenter {
         mPhotosRepository.searchPhotos(text, new PhotosRepository.OnPhotosReady() {
             @Override
             public void onPhotosReady(List<PhotoItem> photos) {
-                mView.showPhotos(photos);
-                mView.hideLoading();
+                if(mView != null) {
+                    mView.showPhotos(photos);
+                    mView.hideLoading();
+                }
             }
 
             @Override
             public void onError(Throwable t) {
-                mView.hideLoading();
-                mView.showErrorMessage(R.string.an_error_happen);
+                if(mView != null) {
+                    mView.hideLoading();
+                    mView.showErrorMessage(R.string.an_error_happen);
+                }
             }
         });
     }

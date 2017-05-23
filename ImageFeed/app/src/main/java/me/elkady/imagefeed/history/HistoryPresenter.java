@@ -4,12 +4,7 @@ import java.util.List;
 
 import me.elkady.imagefeed.R;
 import me.elkady.imagefeed.data.HistoryRepository;
-import me.elkady.imagefeed.data.HistoryRepositoryImpl;
 import me.elkady.imagefeed.models.SearchTerm;
-
-/**
- * Created by MAK on 5/22/17.
- */
 
 public class HistoryPresenter implements HistoryContract.Presenter {
     private HistoryContract.View mView;
@@ -24,12 +19,16 @@ public class HistoryPresenter implements HistoryContract.Presenter {
         mHistoryRepository.loadHistory(new HistoryRepository.OnHistoryReady() {
             @Override
             public void onHistoryReady(List<SearchTerm> searchTerms) {
-                mView.displayHistoryItems(searchTerms);
+                if(mView != null) {
+                    mView.displayHistoryItems(searchTerms);
+                }
             }
 
             @Override
             public void onError(Throwable t) {
-                mView.showErrorMessage(R.string.an_error_happen);
+                if(mView != null) {
+                    mView.showErrorMessage(R.string.an_error_happen);
+                }
             }
         });
     }
