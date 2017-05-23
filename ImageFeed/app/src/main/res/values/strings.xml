@@ -5,4 +5,7 @@
     <string name="an_error_happen">An error happened</string>
     <string name="history">History</string>
     <string name="ok">OK</string>
+    <string name="search">Search</string>
+    <string name="photo">Photo</string>
+    <string name="some_nice_images_will_be_shown_here_you_need_to_search">Some nice images will be shown here… \nYou need to search</string>
 </resources>

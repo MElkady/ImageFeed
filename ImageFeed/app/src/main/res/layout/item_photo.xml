@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_launcher"
             android:id="@+id/iv_image"
+            android:contentDescription="@string/photo"
             android:layout_marginBottom="@dimen/screen_vertical_padding"
             android:layout_marginTop="@dimen/screen_vertical_padding" />
 

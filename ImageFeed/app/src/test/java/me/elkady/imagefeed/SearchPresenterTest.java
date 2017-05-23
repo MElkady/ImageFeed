@@ -3,6 +3,7 @@ package me.elkady.imagefeed;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -22,6 +23,7 @@ import me.elkady.imagefeed.models.TwitterPhotoItem;
 import me.elkady.imagefeed.search.SearchContract;
 import me.elkady.imagefeed.search.SearchPresenter;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.verify;
@@ -68,8 +70,13 @@ public class SearchPresenterTest {
         mPresenter.attachView(mView);
     }
 
+    @After
+    public void cleanup(){
+        mPresenter.detachView();
+    }
+
     @Test
-    public void testSearch() {
+    public void testSuccessfulSearch() {
         List<PhotoItem> photoItems = new ArrayList<>();
         photoItems.add(new InstagramPhotoItem());
         photoItems.add(new TwitterPhotoItem());
@@ -83,6 +90,17 @@ public class SearchPresenterTest {
 
         verify(mView).hideLoading();
         verify(mView).showPhotos(photoItems);
-        mPresenter.detachView();
+    }
+
+    @Test
+    public void testFailedSearch() {
+        mPresenter.search(searchText);
+        verify(mView).displayLoading();
+        verify(mHistoryRepository).addHistoryItem(argThat(searchTermMatcher));
+        verify(mPhotosRepository).searchPhotos(eq(searchText), mPhotosRepositoryOnPhotosReady.capture());
+        mPhotosRepositoryOnPhotosReady.getValue().onError(new Exception());
+
+        verify(mView).hideLoading();
+        verify(mView).showErrorMessage(any(Integer.class));
     }
 }

@@ -22,7 +22,7 @@
             android:name="io.fabric.ApiKey"
             android:value="0e8e0db421dbff0a540d16ab6971194d711f6bf6" />
 
-        <activity android:name=".history.HistoryActivity"></activity>
+        <activity android:name=".history.HistoryActivity" android:label="@string/history" />
     </application>
 
 </manifest>

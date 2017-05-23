@@ -14,8 +14,7 @@
         android:layout_toStartOf="@+id/search_button_area"
         android:drawableStart="@drawable/ic_search_gray"
         android:imeOptions="actionSearch"
-        android:inputType="text"
-        android:layout_below="@+id/toolbar"/>
+        android:inputType="text"/>
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -33,6 +32,7 @@
             android:layout_marginRight="@dimen/screen_horizontal_padding"
             android:src="@drawable/ic_search"
             android:id="@+id/btn_search"
+            android:contentDescription="@string/search"
             />
 
         <ProgressBar
@@ -57,6 +57,25 @@
         android:layout_marginLeft="@dimen/screen_horizontal_padding"
         android:layout_marginRight="@dimen/screen_horizontal_padding"
         android:layout_marginTop="8dp"
-        android:layout_below="@+id/tv_search"/>
+        android:layout_below="@+id/tv_search"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/ll_noImages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/screen_horizontal_padding"
+        android:layout_marginRight="@dimen/screen_horizontal_padding"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/some_nice_images_will_be_shown_here_you_need_to_search" />
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -10,10 +10,6 @@ public abstract class PhotoItem {
     private String id;
     private long timestamp;
 
-    public PhotoItem(){
-
-    }
-
     public long getTimestamp() {
         return timestamp;
     }

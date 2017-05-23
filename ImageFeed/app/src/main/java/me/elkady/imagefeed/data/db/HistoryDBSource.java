@@ -13,7 +13,7 @@ import me.elkady.imagefeed.models.SearchTerm;
 
 public class HistoryDBSource {
     private static HistoryDBSource sInstance;
-    private AppDatabase db;
+    private final AppDatabase db;
 
     private HistoryDBSource(Context context) {
         db = Room.databaseBuilder(context, AppDatabase.class, "database-name").build();

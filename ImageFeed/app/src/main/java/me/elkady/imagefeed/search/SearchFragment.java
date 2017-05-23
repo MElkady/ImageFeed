@@ -17,6 +17,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -42,6 +43,7 @@ public class SearchFragment extends Fragment implements SearchContract.View {
     @BindView(R.id.tv_search) TextView mSearchView;
     @BindView(R.id.btn_search) ImageButton mSearchButton;
     @BindView(R.id.progress_bar) ProgressBar mProgressBar;
+    @BindView(R.id.ll_noImages) LinearLayout mNoImagesLayout;
 
     public static SearchFragment getInstance() {
         return new SearchFragment();
@@ -105,8 +107,12 @@ public class SearchFragment extends Fragment implements SearchContract.View {
 
     @Override
     public void showPhotos(List<PhotoItem> photoItems) {
-        this.mPhotoItems = photoItems;
-        this.mAdapter.notifyDataSetChanged();
+        mPhotoItems = photoItems;
+        if(photoItems != null && photoItems.size() > 0) {
+            mAdapter.notifyDataSetChanged();
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mNoImagesLayout.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -155,7 +161,7 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         }
     }
 
-    private RecyclerView.Adapter<PhotoImageViewHolder> mAdapter = new RecyclerView.Adapter<PhotoImageViewHolder>() {
+    private final RecyclerView.Adapter<PhotoImageViewHolder> mAdapter = new RecyclerView.Adapter<PhotoImageViewHolder>() {
         @Override
         public PhotoImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new PhotoImageViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_photo, parent, false));

@@ -104,7 +104,7 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         }
     }
 
-    private RecyclerView.Adapter<SearchTermViewHolder> adapter = new RecyclerView.Adapter<SearchTermViewHolder>() {
+    private final RecyclerView.Adapter<SearchTermViewHolder> adapter = new RecyclerView.Adapter<SearchTermViewHolder>() {
         @Override
         public SearchTermViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return new SearchTermViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_history, parent, false));
