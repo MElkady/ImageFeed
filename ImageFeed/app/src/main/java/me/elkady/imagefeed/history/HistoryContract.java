@@ -12,9 +12,11 @@ import me.elkady.imagefeed.models.SearchTerm;
 public interface HistoryContract {
     interface Presenter extends BaseContract.BasePresenter<View> {
         void loadHistory();
+        void executeSearch(SearchTerm searchTerm);
     }
 
     interface View extends BaseContract.BaseView {
         void displayHistoryItems(List<SearchTerm> searchTerms);
+        void searchForKeyword(SearchTerm searchTerm);
     }
 }

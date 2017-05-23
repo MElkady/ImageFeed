@@ -33,8 +33,10 @@ import me.elkady.imagefeed.R;
 import me.elkady.imagefeed.data.HistoryRepositoryImpl;
 import me.elkady.imagefeed.data.PhotosRepositoryImpl;
 import me.elkady.imagefeed.models.PhotoItem;
+import me.elkady.imagefeed.models.SearchTerm;
 
 public class SearchFragment extends Fragment implements SearchContract.View {
+    public static final String ARG_SEARCH_TERM = "argSearchTerm";
     private SearchContract.Presenter mPresenter;
     private List<PhotoItem> mPhotoItems;
 
@@ -68,6 +70,12 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         // Setting up recycler view
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
+
+        if(this.getArguments() != null && this.getArguments().containsKey(ARG_SEARCH_TERM)) {
+            SearchTerm searchTerm = (SearchTerm) this.getArguments().getSerializable(ARG_SEARCH_TERM);
+            mSearchView.setText(searchTerm.getKeyword());
+            mPresenter.search(searchTerm.getKeyword());
+        }
 
         return view;
     }

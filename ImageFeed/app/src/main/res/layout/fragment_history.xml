@@ -10,6 +10,8 @@
         android:layout_marginLeft="@dimen/screen_horizontal_padding"
         android:layout_marginRight="@dimen/screen_horizontal_padding"
         android:layout_marginBottom="@dimen/screen_vertical_padding"
-        android:layout_marginTop="@dimen/screen_vertical_padding" />
+        android:layout_marginTop="@dimen/screen_vertical_padding"
+        android:clickable="true"
+        android:focusable="true"/>
 
 </LinearLayout>

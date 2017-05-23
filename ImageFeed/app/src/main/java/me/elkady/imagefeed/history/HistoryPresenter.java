@@ -34,6 +34,11 @@ public class HistoryPresenter implements HistoryContract.Presenter {
     }
 
     @Override
+    public void executeSearch(SearchTerm searchTerm) {
+        mView.searchForKeyword(searchTerm);
+    }
+
+    @Override
     public void attachView(HistoryContract.View view) {
         this.mView = view;
     }

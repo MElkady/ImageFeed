@@ -11,8 +11,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.elkady.imagefeed.R;
 import me.elkady.imagefeed.history.HistoryActivity;
+import me.elkady.imagefeed.models.SearchTerm;
 
 public class SearchActivity extends AppCompatActivity {
+    public static final String ARG_SEARCH_TERM = "argSearchTerm";
+
     @BindView(R.id.toolbar) Toolbar mToolbar;
 
     @Override
@@ -22,10 +25,18 @@ public class SearchActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
 
+
         SearchFragment searchFragment = (SearchFragment) getSupportFragmentManager().findFragmentById(R.id.contentArea);
         if(searchFragment == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.contentArea, SearchFragment.getInstance()).commit();
+            searchFragment = SearchFragment.getInstance();
         }
+        if(getIntent().hasExtra(ARG_SEARCH_TERM)) {
+            SearchTerm searchTerm = (SearchTerm) getIntent().getExtras().get(ARG_SEARCH_TERM);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(SearchFragment.ARG_SEARCH_TERM, searchTerm);
+            searchFragment.setArguments(bundle);
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.contentArea, searchFragment).commit();
     }
 
     @Override

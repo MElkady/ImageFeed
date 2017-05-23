@@ -1,6 +1,7 @@
 package me.elkady.imagefeed.history;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -21,6 +22,7 @@ import butterknife.ButterKnife;
 import me.elkady.imagefeed.R;
 import me.elkady.imagefeed.data.HistoryRepositoryImpl;
 import me.elkady.imagefeed.models.SearchTerm;
+import me.elkady.imagefeed.search.SearchActivity;
 
 
 public class HistoryFragment extends Fragment implements HistoryContract.View {
@@ -90,6 +92,14 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void searchForKeyword(SearchTerm searchTerm) {
+        Intent i = new Intent(getActivity(), SearchActivity.class);
+        i.putExtra(SearchActivity.ARG_SEARCH_TERM, searchTerm);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
     class SearchTermViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.textView)
         TextView mTextTerm;
@@ -99,8 +109,14 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
             ButterKnife.bind(this, itemView);
         }
 
-        void bindView(SearchTerm searchTerm) {
+        void bindView(final SearchTerm searchTerm) {
             mTextTerm.setText(searchTerm.getKeyword());
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPresenter.executeSearch(searchTerm);
+                }
+            });
         }
     }
 
