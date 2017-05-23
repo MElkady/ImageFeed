@@ -2,7 +2,9 @@ package me.elkady.imagefeed.search;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -29,6 +32,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
 import me.elkady.imagefeed.R;
+import me.elkady.imagefeed.data.HistoryRepositoryImpl;
+import me.elkady.imagefeed.data.PhotosRepositoryImpl;
+import me.elkady.imagefeed.history.HistoryActivity;
 import me.elkady.imagefeed.models.PhotoItem;
 
 public class SearchActivity extends AppCompatActivity implements SearchContract.View {
@@ -48,7 +54,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
 
-        mPresenter = new SearchPresenter(this, this);
+        mPresenter = new SearchPresenter(this, new PhotosRepositoryImpl(), new HistoryRepositoryImpl());    // TODO someday we should use dependency injection...
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
@@ -58,6 +64,16 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.menu_item_history) {
+            Intent i = new Intent(getApplicationContext(), HistoryActivity.class);
+            startActivity(i);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @OnEditorAction(R.id.tv_search)
@@ -83,7 +99,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         if(mSearchView.getText() != null && mSearchView.getText().length() > 0) {
             mPresenter.search(mSearchView.getText().toString());
         } else {
-            showErrorMessage(getString(R.string.please_enter_search_query));
+            showErrorMessage(R.string.please_enter_search_query);
         }
     }
 
@@ -94,7 +110,7 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     }
 
     @Override
-    public void showErrorMessage(String error) {
+    public void showErrorMessage(@StringRes int error) {
         AlertDialog.Builder b = new AlertDialog.Builder(this);
         b.setCancelable(false);
         b.setMessage(error);
@@ -109,13 +125,13 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
     }
 
     @Override
-    public void showLoadingMessage() {
+    public void displayLoading() {
         mSearchButton.setVisibility(View.GONE);
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void hideLoadingMessage() {
+    public void hideLoading() {
         mSearchButton.setVisibility(View.VISIBLE);
         mProgressBar.setVisibility(View.GONE);
     }

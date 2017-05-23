@@ -1,4 +1,4 @@
-package me.elkady.imagefeed.data;
+package me.elkady.imagefeed.data.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.elkady.imagefeed.BuildConfig;
+import me.elkady.imagefeed.data.PhotosRepository;
 import me.elkady.imagefeed.models.InstagramPhotoItem;
 import me.elkady.imagefeed.models.InstagramPhotoList;
 import me.elkady.imagefeed.models.PhotoItem;
@@ -22,7 +23,7 @@ import retrofit2.http.Query;
  * Created by MAK on 5/22/17.
  */
 
-public class InstagramPhotosSource implements PhotoSource {
+public class InstagramPhotosSource implements PhotosRepository.PhotoSource {
     private static InstagramService sInstagramService;
 
     interface InstagramService {
@@ -31,7 +32,7 @@ public class InstagramPhotosSource implements PhotoSource {
     }
 
     @Override
-    public void searchPhotos(String text, final OnPhotosReady onPhotosReady) {
+    public void searchPhotos(String text, final PhotosRepository.OnPhotosReady onPhotosReady) {
         if(sInstagramService == null) {
             GsonBuilder gsonBuilder = new GsonBuilder();
             gsonBuilder.registerTypeAdapter(InstagramPhotoItem.class, new InstagramPhotoItem.InstagramPhotoItemDeserializer());

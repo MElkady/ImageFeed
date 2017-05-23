@@ -1,4 +1,4 @@
-package me.elkady.imagefeed.data;
+package me.elkady.imagefeed.data.network;
 
 import android.util.Log;
 
@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 import me.elkady.imagefeed.ImageFeedApp;
+import me.elkady.imagefeed.data.PhotosRepository;
 import me.elkady.imagefeed.models.PhotoItem;
 import me.elkady.imagefeed.models.TwitterPhotoItem;
 import retrofit2.Call;
@@ -26,11 +27,11 @@ import retrofit2.Call;
  * Created by MAK on 5/21/17.
  */
 
-class TwitterPhotosSource implements PhotoSource {
+public class TwitterPhotosSource implements PhotosRepository.PhotoSource {
     private static final String twitterFormat="EEE MMM dd HH:mm:ss ZZZZZ yyyy";
 
     @Override
-    public void searchPhotos(String text, final OnPhotosReady onPhotosReady) {
+    public void searchPhotos(String text, final PhotosRepository.OnPhotosReady onPhotosReady) {
         TwitterApiClient apiClient = TwitterCore.getInstance().getGuestApiClient();
         String query = text + " AND filter:images";
         Call<Search> result = apiClient.getSearchService().tweets(query, null, null, null, "mixed", 20, null, null, null, true);

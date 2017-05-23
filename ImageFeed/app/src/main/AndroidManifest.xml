@@ -3,13 +3,13 @@
     package="me.elkady.imagefeed">
 
     <application
+        android:name=".ImageFeedApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".ImageFeedApp">
+        android:theme="@style/AppTheme">
         <activity android:name=".search.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,10 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="0e8e0db421dbff0a540d16ab6971194d711f6bf6"
-            />
+            android:value="0e8e0db421dbff0a540d16ab6971194d711f6bf6" />
+
+        <activity android:name=".history.HistoryActivity"></activity>
     </application>
 
 </manifest>

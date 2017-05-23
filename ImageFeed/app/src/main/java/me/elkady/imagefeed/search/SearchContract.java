@@ -17,8 +17,7 @@ public interface SearchContract {
 
     interface View extends BaseView<Presenter> {
         void showPhotos(List<PhotoItem> photoItems);
-        void showErrorMessage(String error);
-        void showLoadingMessage();
-        void hideLoadingMessage();
+        void displayLoading();
+        void hideLoading();
     }
 }
