@@ -64,7 +64,8 @@ public class SearchPresenterTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        mPresenter = new SearchPresenter(mView, mPhotosRepository, mHistoryRepository);
+        mPresenter = new SearchPresenter(mPhotosRepository, mHistoryRepository);
+        mPresenter.attachView(mView);
     }
 
     @Test
@@ -73,7 +74,7 @@ public class SearchPresenterTest {
         photoItems.add(new InstagramPhotoItem());
         photoItems.add(new TwitterPhotoItem());
 
-        mPresenter.search("dubai");
+        mPresenter.search(searchText);
 
         verify(mView).displayLoading();
         verify(mHistoryRepository).addHistoryItem(argThat(searchTermMatcher));
@@ -82,5 +83,6 @@ public class SearchPresenterTest {
 
         verify(mView).hideLoading();
         verify(mView).showPhotos(photoItems);
+        mPresenter.detachView();
     }
 }
