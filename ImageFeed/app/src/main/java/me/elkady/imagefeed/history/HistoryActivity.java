@@ -38,12 +38,25 @@ public class HistoryActivity extends AppCompatActivity implements HistoryContrac
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mPresenter = new HistoryPresenter(this, new HistoryRepositoryImpl());
-        mPresenter.loadHistory();
+        mPresenter = new HistoryPresenter(new HistoryRepositoryImpl());
+        mPresenter.attachView(this);
 
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.loadHistory();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.mPresenter.detachView();
+        this.mPresenter = null;
     }
 
     @Override

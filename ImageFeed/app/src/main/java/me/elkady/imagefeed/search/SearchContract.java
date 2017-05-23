@@ -11,11 +11,11 @@ import me.elkady.imagefeed.models.PhotoItem;
  */
 
 public interface SearchContract {
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenter<View> {
         void search(String text);
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View extends BaseView {
         void showPhotos(List<PhotoItem> photoItems);
         void displayLoading();
         void hideLoading();

@@ -7,11 +7,12 @@ import android.support.annotation.StringRes;
  */
 
 public interface BaseContract {
-    interface BasePresenter {
-
+    interface BasePresenter<T extends BaseView> {
+        void attachView(T view);
+        void detachView();
     }
 
-    interface BaseView<T extends BasePresenter> {
+    interface BaseView {
         void showErrorMessage(@StringRes int error);
     }
 }

@@ -14,7 +14,7 @@ import me.elkady.imagefeed.models.SearchTerm;
 
 @Dao
 public interface HistoryDAO {
-    @Query("SELECT * FROM SearchTerm")
+    @Query("SELECT * FROM SearchTerm order by timestamp DESC")
     List<SearchTerm> getHistoryItems();
 
     @Insert

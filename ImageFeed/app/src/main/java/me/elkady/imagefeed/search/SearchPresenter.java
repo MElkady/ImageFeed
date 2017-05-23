@@ -13,13 +13,12 @@ import me.elkady.imagefeed.models.SearchTerm;
  */
 
 public class SearchPresenter implements SearchContract.Presenter {
-    private final SearchContract.View mView;
+    private SearchContract.View mView;
     private final PhotosRepository mPhotosRepository;
     private final HistoryRepository mHistoryRepository;
 
 
-    public SearchPresenter(SearchContract.View view, PhotosRepository photosRepository, HistoryRepository historyRepository) {
-        this.mView = view;
+    public SearchPresenter(PhotosRepository photosRepository, HistoryRepository historyRepository) {
         this.mPhotosRepository = photosRepository;
         this.mHistoryRepository = historyRepository;
     }
@@ -46,5 +45,15 @@ public class SearchPresenter implements SearchContract.Presenter {
                 mView.showErrorMessage(R.string.an_error_happen);
             }
         });
+    }
+
+    @Override
+    public void attachView(SearchContract.View view) {
+        this.mView = view;
+    }
+
+    @Override
+    public void detachView() {
+        this.mView = null;
     }
 }

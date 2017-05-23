@@ -12,11 +12,10 @@ import me.elkady.imagefeed.models.SearchTerm;
  */
 
 public class HistoryPresenter implements HistoryContract.Presenter {
-    private final HistoryContract.View mView;
+    private HistoryContract.View mView;
     private final HistoryRepository mHistoryRepository;
 
-    public HistoryPresenter(HistoryContract.View view, HistoryRepository historyRepository) {
-        this.mView = view;
+    public HistoryPresenter(HistoryRepository historyRepository) {
         this.mHistoryRepository = historyRepository;
     }
 
@@ -33,5 +32,15 @@ public class HistoryPresenter implements HistoryContract.Presenter {
                 mView.showErrorMessage(R.string.an_error_happen);
             }
         });
+    }
+
+    @Override
+    public void attachView(HistoryContract.View view) {
+        this.mView = view;
+    }
+
+    @Override
+    public void detachView() {
+        this.mView = null;
     }
 }

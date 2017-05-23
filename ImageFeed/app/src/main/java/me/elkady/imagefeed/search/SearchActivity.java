@@ -54,10 +54,18 @@ public class SearchActivity extends AppCompatActivity implements SearchContract.
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
 
-        mPresenter = new SearchPresenter(this, new PhotosRepositoryImpl(), new HistoryRepositoryImpl());    // TODO someday we should use dependency injection...
+        mPresenter = new SearchPresenter(new PhotosRepositoryImpl(), new HistoryRepositoryImpl());    // TODO someday we should use dependency injection...
+        mPresenter.attachView(this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.mPresenter.detachView();
+        this.mPresenter = null;
     }
 
     @Override
