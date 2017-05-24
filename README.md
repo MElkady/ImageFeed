@@ -1,6 +1,6 @@
 # ImageFeed
 
-ImageFeed is a showcase native Android app to search for images on social media. At the moment, ImageFeed supports Twitter & Instagram, more channels will come later.
+ImageFeed is a showcase native Android app to search for images on social media. At the moment, ImageFeed supports Twitter, Instagram & Google plus, more channels will come later.
 
 ImageFeed follows Model-View-Presenter (MVP) architecture & trying to apply SOLID principles. Packages classes/interfaces by function as following:
 

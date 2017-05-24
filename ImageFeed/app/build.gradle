@@ -14,9 +14,11 @@ android {
         targetSdkVersion rootProject.ext.androidTargetSdkVersion
         versionCode 1
         versionName "1.0"
+        buildConfigField 'String', 'GOOGLE_PLUS_KEY', '"AIzaSyDNPWnOcfhgpr-4MSYAqNSXTlNQJmkXlRc"'
         buildConfigField 'String', 'TWITTER_KEY', '"AS0zRH4akvsvOTW5dBbUnXajD"'
         buildConfigField 'String', 'TWITTER_SECRET', '"tjV3RVYlpWs6YT0nHiOBmWPcrBySkVhiH4bRgdyDG3Z6kAi9hP"'
         buildConfigField 'String', 'INSTAGRAM_SERVICE_URL', '"https://my-instagram-api.herokuapp.com"'
+        buildConfigField 'String', 'GOOGLE_PLUS_SERVICE_URL', '"https://www.googleapis.com/plus/v1/"'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
