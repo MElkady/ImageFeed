@@ -71,10 +71,15 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setAdapter(mAdapter);
 
-        if(this.getArguments() != null && this.getArguments().containsKey(ARG_SEARCH_TERM)) {
-            SearchTerm searchTerm = (SearchTerm) this.getArguments().getSerializable(ARG_SEARCH_TERM);
-            mSearchView.setText(searchTerm.getKeyword());
-            mPresenter.search(searchTerm.getKeyword());
+        if(mPhotoItems != null){
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mNoImagesLayout.setVisibility(View.GONE);
+        } else {
+            if (this.getArguments() != null && this.getArguments().containsKey(ARG_SEARCH_TERM)) {
+                SearchTerm searchTerm = (SearchTerm) this.getArguments().getSerializable(ARG_SEARCH_TERM);
+                mSearchView.setText(searchTerm.getKeyword());
+                mPresenter.search(searchTerm.getKeyword());
+            }
         }
 
         return view;

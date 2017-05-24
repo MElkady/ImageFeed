@@ -29,14 +29,15 @@ public class SearchActivity extends AppCompatActivity {
         SearchFragment searchFragment = (SearchFragment) getSupportFragmentManager().findFragmentById(R.id.contentArea);
         if(searchFragment == null) {
             searchFragment = SearchFragment.getInstance();
+
+            if(getIntent().hasExtra(ARG_SEARCH_TERM)) {
+                SearchTerm searchTerm = (SearchTerm) getIntent().getExtras().get(ARG_SEARCH_TERM);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(SearchFragment.ARG_SEARCH_TERM, searchTerm);
+                searchFragment.setArguments(bundle);
+            }
+            getSupportFragmentManager().beginTransaction().replace(R.id.contentArea, searchFragment).commit();
         }
-        if(getIntent().hasExtra(ARG_SEARCH_TERM)) {
-            SearchTerm searchTerm = (SearchTerm) getIntent().getExtras().get(ARG_SEARCH_TERM);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(SearchFragment.ARG_SEARCH_TERM, searchTerm);
-            searchFragment.setArguments(bundle);
-        }
-        getSupportFragmentManager().beginTransaction().replace(R.id.contentArea, searchFragment).commit();
     }
 
     @Override
