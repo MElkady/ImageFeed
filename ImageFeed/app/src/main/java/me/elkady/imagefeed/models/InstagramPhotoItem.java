@@ -1,6 +1,5 @@
 package me.elkady.imagefeed.models;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -23,8 +22,6 @@ public class InstagramPhotoItem extends PhotoItem {
     public static class InstagramPhotoItemDeserializer implements JsonDeserializer<InstagramPhotoItem> {
         @Override
         public InstagramPhotoItem deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            Gson gson = new Gson();
-
             JsonObject jobject = (JsonObject) json;
             InstagramPhotoItem m = new InstagramPhotoItem();
             m.setId(jobject.get("id").getAsString());
