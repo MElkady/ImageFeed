@@ -25,6 +25,12 @@ public class PhotosRepositoryImpl implements PhotosRepository {
         this.mGooglePlusPhotoSource = new GooglePlusPhotoSource();
     }
 
+    public PhotosRepositoryImpl(TwitterPhotosSource twitterPhotosSource, InstagramPhotosSource instagramPhotosSource, GooglePlusPhotoSource googlePlusPhotoSource) {
+        this.mTwitterPhotosSource = twitterPhotosSource;
+        this.mInstagramPhotosSource = instagramPhotosSource;
+        this.mGooglePlusPhotoSource = googlePlusPhotoSource;
+    }
+
     public void searchPhotos(final String text, final PhotosRepository.OnPhotosReady onPhotosReady) {
         final List<PhotoItem> photoItems = new ArrayList<>();
 
