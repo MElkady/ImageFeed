@@ -1,4 +1,4 @@
-package me.elkady.imagefeed;
+package me.elkady.imagefeed.data;
 
 import org.junit.Before;
 import org.junit.Test;

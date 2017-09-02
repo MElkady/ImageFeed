@@ -1,4 +1,4 @@
-package me.elkady.imagefeed;
+package me.elkady.imagefeed.search;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
