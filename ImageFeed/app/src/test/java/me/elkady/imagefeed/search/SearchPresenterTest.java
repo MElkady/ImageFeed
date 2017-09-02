@@ -76,7 +76,7 @@ public class SearchPresenterTest {
     }
 
     @Test
-    public void testSuccessfulSearch() {
+    public void testSearch_Success() {
         List<PhotoItem> photoItems = new ArrayList<>();
         photoItems.add(new InstagramPhotoItem());
         photoItems.add(new TwitterPhotoItem());
@@ -93,7 +93,22 @@ public class SearchPresenterTest {
     }
 
     @Test
-    public void testFailedSearch() {
+    public void testSearch_NoData() {
+        List<PhotoItem> photoItems = new ArrayList<>();
+
+        mPresenter.search(searchText);
+
+        verify(mView).displayLoading();
+        verify(mHistoryRepository).addHistoryItem(argThat(searchTermMatcher));
+        verify(mPhotosRepository).searchPhotos(eq(searchText), mPhotosRepositoryOnPhotosReady.capture());
+        mPhotosRepositoryOnPhotosReady.getValue().onPhotosReady(photoItems);
+
+        verify(mView).hideLoading();
+        verify(mView).showPhotos(photoItems);
+    }
+
+    @Test
+    public void testSearch_Failure() {
         mPresenter.search(searchText);
         verify(mView).displayLoading();
         verify(mHistoryRepository).addHistoryItem(argThat(searchTermMatcher));
