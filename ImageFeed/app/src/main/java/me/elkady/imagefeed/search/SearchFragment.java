@@ -25,20 +25,23 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
+import me.elkady.imagefeed.ImageFeedApp;
 import me.elkady.imagefeed.R;
-import me.elkady.imagefeed.data.HistoryRepositoryImpl;
-import me.elkady.imagefeed.data.PhotosRepositoryImpl;
 import me.elkady.imagefeed.models.PhotoItem;
 import me.elkady.imagefeed.models.SearchTerm;
 
 public class SearchFragment extends Fragment implements SearchContract.View {
     public static final String ARG_SEARCH_TERM = "argSearchTerm";
-    private SearchContract.Presenter mPresenter;
     private List<PhotoItem> mPhotoItems;
+
+    @Inject
+    SearchContract.Presenter mPresenter;
 
 
     @BindView(R.id.rv_images) RecyclerView mRecyclerView;
@@ -56,8 +59,8 @@ public class SearchFragment extends Fragment implements SearchContract.View {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
-        // Setting up presenter
-        mPresenter = new SearchPresenter(new PhotosRepositoryImpl(), new HistoryRepositoryImpl());    // TODO someday we should use dependency injection...
+        ((ImageFeedApp) getActivity().getApplication()).getApplicationComponent().inject(this);
+
         mPresenter.attachView(this);
     }
 

@@ -17,8 +17,11 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import me.elkady.imagefeed.ImageFeedApp;
 import me.elkady.imagefeed.R;
 import me.elkady.imagefeed.data.HistoryRepositoryImpl;
 import me.elkady.imagefeed.models.SearchTerm;
@@ -27,7 +30,9 @@ import me.elkady.imagefeed.search.SearchActivity;
 
 public class HistoryFragment extends Fragment implements HistoryContract.View {
     private List<SearchTerm> mSearchTerms;
-    private HistoryContract.Presenter mPresenter;
+
+    @Inject
+    HistoryContract.Presenter mPresenter;
 
     @BindView(R.id.rv_history) RecyclerView mRecyclerView;
 
@@ -40,8 +45,8 @@ public class HistoryFragment extends Fragment implements HistoryContract.View {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
 
-        // Setting up presenter
-        mPresenter = new HistoryPresenter(new HistoryRepositoryImpl());
+        ((ImageFeedApp) getActivity().getApplication()).getApplicationComponent().inject(this);
+
         mPresenter.attachView(this);
     }
 

@@ -43,6 +43,8 @@ ext {
     butterknifeVersion = '8.6.0'
     roomVersion = '1.0.0-alpha1'
 
+    daggerVersion = '2.8'
+
     junitVersion = '4.12'
     mockitoVersion = '1.10.19'
     powerMockito = '1.6.2'
